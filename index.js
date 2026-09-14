@@ -23,7 +23,10 @@ try {
   config = {};
 }
 if (process.env.TOKEN) config.token = process.env.TOKEN;
-const { data, save } = require('./utils/data');
+const db = require('./utils/data');
+let data = db.data;
+let save = db.save;
+const dataReady = db.init();
 const { renderTranscriptImages } = require('./utils/transcriptImages');
 const { renderLeaderboard } = require('./utils/leaderboard');
 
@@ -1268,6 +1271,10 @@ http
   })
   .listen(PORT, () => console.log(`✅ خادم الـ Health يعمل على المنفذ ${PORT}`));
 
-client.login(config.token).catch((err) => {
-  console.error('❌ فشل تسجيل الدخول:', err.message);
+dataReady.then(() => {
+  data = db.data;
+  save = db.save;
+  client.login(config.token).catch((err) => {
+    console.error('❌ فشل تسجيل الدخول:', err.message);
+  });
 });
