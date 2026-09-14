@@ -57,7 +57,7 @@ const TOP_SELECTS = {
 const TOP_RESET_YES = 'top_reset_yes';
 const TOP_RESET_NO = 'top_reset_no';
 const TOP_WORDS = ['توب', 'top'];
-const ALLOWED_GUILD_ID = '1541409816201793546';
+const ALLOWED_GUILD_ID = process.env.GUILD_ID || '1541409816201793546';
 const TOP_NAV_PREFIX = 'top_go_';
 const TOP_PER_PAGE = 10;
 
@@ -1257,6 +1257,16 @@ client.on(Events.InteractionCreate, async (interaction) => {
       interaction.reply({ content: '❌ حدث خطأ.', ephemeral: true }).catch(() => {});
   }
 });
+
+// ================= خادم Health لـ Render =================
+const http = require('http');
+const PORT = process.env.PORT || 3000;
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('OK');
+  })
+  .listen(PORT, () => console.log(`✅ خادم الـ Health يعمل على المنفذ ${PORT}`));
 
 client.login(config.token).catch((err) => {
   console.error('❌ فشل تسجيل الدخول:', err.message);
