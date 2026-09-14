@@ -1,0 +1,13 @@
+{
+  "name": "ticket-bot",
+  "version": "1.0.0",
+  "description": "بوت تذاكر احترافي للسيرفرات",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.9",
+    "discord.js": "^14.16.3"
+  }
+}
